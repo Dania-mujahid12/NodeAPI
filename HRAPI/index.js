@@ -42,6 +42,15 @@ app.get('/Employee',async(req,res)=>{
     }
 });
 
+app.get('/totalemployee',async(req,res)=>{
+    try{
+        const result=await pool.query('select count(employee_id) from employees');
+        res.json(result.rows);
+    }catch(err){
+        res.status(500).json({Error: err.message});
+    }
+});
+
 const  PORT= process.env.PORT;
 app.listen(PORT,()=>{
     console.log(`Connected Successfully... on PORT ${PORT}`);
